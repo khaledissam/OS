@@ -1,6 +1,6 @@
 include ../../../Makefile.def
 
-OBJS       = Metis.o
+OBJS       = Metis.o MetisWithTopology.o
 
 # Compilation control
 
