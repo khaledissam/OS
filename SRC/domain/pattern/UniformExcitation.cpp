@@ -18,9 +18,9 @@
 **                                                                    **
 ** ****************************************************************** */
                                                                         
-// $Revision$
-// $Date$
-// $URL$
+// $Revision: 6362 $
+// $Date: 2016-09-02 17:36:41 -0300 (Fri, 02 Sep 2016) $
+// $URL: svn://peera.berkeley.edu/usr/local/svn/OpenSees/trunk/SRC/domain/pattern/UniformExcitation.cpp $
                                                                         
                                                                         
 // File: ~/domain/load/UniformExcitation.h

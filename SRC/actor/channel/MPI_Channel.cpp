@@ -472,6 +472,94 @@ MPI_Channel::sendID(int dbTag, int commitTag, const ID &theID, ChannelAddress *t
 }
 
 
+int MPI_Channel::bcastID(int origin_rank, int commitTag, ID &theID, ChannelAddress *theAddress )
+{
+
+    // first check address is the only address a MPI_Channel can send to
+    MPI_ChannelAddress *theMPI_ChannelAddress = 0;
+    if (theAddress != 0) {
+      if (theAddress->getType() == MPI_TYPE) {
+          theMPI_ChannelAddress = (MPI_ChannelAddress *)theAddress;
+          otherTag = theMPI_ChannelAddress->otherTag;
+          otherComm= theMPI_ChannelAddress->otherComm;
+      } else {
+          opserr << "MPI_Channel::sendID() - a MPI_Channel ";
+          opserr << "can only communicate with a MPI_Channel";
+          opserr << " address given is not of type MPI_ChannelAddress\n"; 
+          return -1;      
+      }       
+    }
+
+    int nwrite, nleft;    
+    int *data = theID.data;
+    char *gMsg = (char *)data;
+    nleft =  theID.sz;
+
+    int error = MPI_Bcast((void *)gMsg, nleft, MPI_INT, origin_rank, otherComm);
+
+    if (error == MPI_SUCCESS)
+    {
+      return 0; 
+    }
+    else
+    {
+      return -1;
+    }
+}
+
+int MPI_Channel::bcastVector(int origin_rank, int commitTag, Vector &theVector, ChannelAddress *theAddress)
+{
+      // first check address is the only address a MPI_Channel can send to
+    MPI_ChannelAddress *theMPI_ChannelAddress = 0;
+    if (theAddress != 0) {
+      if (theAddress->getType() == MPI_TYPE) {
+          theMPI_ChannelAddress = (MPI_ChannelAddress *)theAddress;
+          otherTag = theMPI_ChannelAddress->otherTag;
+          otherComm= theMPI_ChannelAddress->otherComm;
+      } else {
+          opserr << "MPI_Channel::sendID() - a MPI_Channel ";
+          opserr << "can only communicate with a MPI_Channel";
+          opserr << " address given is not of type MPI_ChannelAddress\n"; 
+          return -1;      
+      }       
+    }
+
+    int nwrite, nleft;    
+    double *data = theVector.theData;
+    char *gMsg = (char *)data;
+    nleft =  theVector.sz;
+
+    // MPI_Request request = MPI_REQUEST_NULL;
+    // int error = MPI_Ibcast((void *)gMsg, nleft, MPI_DOUBLE, origin_rank, otherComm, request);
+    int error = MPI_Bcast((void *)gMsg, nleft, MPI_DOUBLE, origin_rank, otherComm);
+
+
+
+
+    if (error == MPI_SUCCESS)
+    {
+      return 0; 
+    }
+    else
+    {
+      return -1;
+    }
+}
+
+int MPI_Channel::bcastMatrix(int origin_rank, int commitTag, Matrix &theMatrix, ChannelAddress *theAddress)
+{
+  return 0;
+}
+
+
+
+
+
+
+
+
+
+
 /*
 int 
 MPI_Channel::getPortNumber(void) const

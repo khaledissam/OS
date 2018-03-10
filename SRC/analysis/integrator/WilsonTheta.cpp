@@ -18,9 +18,9 @@
 **                                                                    **
 ** ****************************************************************** */
 
-// $Revision$
-// $Date$
-// $URL$
+// $Revision: 6670 $
+// $Date: 2018-02-16 16:22:42 -0300 (Fri, 16 Feb 2018) $
+// $URL: svn://peera.berkeley.edu/usr/local/svn/OpenSees/trunk/SRC/analysis/integrator/WilsonTheta.cpp $
 
 // Written: fmk 
 // Created: 11/98

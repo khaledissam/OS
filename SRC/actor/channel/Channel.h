@@ -109,6 +109,18 @@ class Channel
 		    ID &theID, 
 		    ChannelAddress *theAddress =0) =0;      
 
+    virtual int bcastID(int dbTag, int commitTag, 
+            ID &theID, 
+            ChannelAddress *theAddress =0) {return 0;}   
+
+    virtual int bcastVector(int dbTag, int commitTag, 
+            Vector &theVector, 
+            ChannelAddress *theAddress =0) {return 0;}   
+
+    virtual int bcastMatrix(int dbTag, int commitTag, 
+            Matrix &theMatrix, 
+            ChannelAddress *theAddress =0) {return 0;}   
+
   protected:
     
   private:

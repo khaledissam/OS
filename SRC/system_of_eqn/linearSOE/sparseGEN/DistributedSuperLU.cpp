@@ -147,6 +147,11 @@ DistributedSuperLU::solve(void)
       options.Fact = SamePattern;
       for (int i=0; i<nnz; i++) rowA[i] = theSOE->rowA[i];
     }
+    // for (int i=0; i<nnz; i++) rowA[i] = theSOE->rowA[i];
+
+    // dCreate_CompCol_Matrix_dist(&A, n, n, nnz, theSOE->A, 
+    //     rowA, theSOE->colStartA, 
+    //     SLU_NC, SLU_D, SLU_GE);
 
     //
     // solve & mark as factored
@@ -154,6 +159,9 @@ DistributedSuperLU::solve(void)
 
     pdgssvx_ABglobal(&options, &A, &ScalePermstruct, Xptr, ldb, nrhs, &grid,
 		     &LUstruct, berr, &stat, &info);
+
+    // Destroy_CompCol_Matrix_dist(&A);
+    Destroy_LU(theSOE->size, &grid, &LUstruct); 
 
     if (theSOE->factored == false) {
       options.Fact = FACTORED;      
@@ -204,7 +212,7 @@ DistributedSuperLU::setSize()
 
   // free old structures if resize already called
   } else {
-    Destroy_LU(theSOE->size, &grid, &LUstruct); 
+    // Destroy_LU(theSOE->size, &grid, &LUstruct); 
     ScalePermstructFree(&ScalePermstruct);
     LUstructFree(&LUstruct); 
   }
