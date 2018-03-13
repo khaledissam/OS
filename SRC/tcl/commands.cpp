@@ -398,6 +398,7 @@ ModelBuilder *theBuilder =0;
 #include <DistributedDisplacementControl.h>
 #include <ShadowSubdomain.h>
 #include <Metis.h>
+#include <MetisWithTopology.h>
 #include <ShedHeaviest.h>
 #include <DomainPartitioner.h>
 #include <GraphPartitioner.h>
@@ -1694,7 +1695,7 @@ partitionModel(int eleTag)
   // create a partitioner & partition the domain
   if (OPS_DOMAIN_PARTITIONER == 0) {
     //      OPS_BALANCER = new ShedHeaviest();
-    OPS_GRAPH_PARTITIONER  = new Metis;
+    OPS_GRAPH_PARTITIONER  = new MetisWithTopology;
     //OPS_DOMAIN_PARTITIONER = new DomainPartitioner(*OPS_GRAPH_PARTITIONER, *OPS_BALANCER);
     OPS_DOMAIN_PARTITIONER = new DomainPartitioner(*OPS_GRAPH_PARTITIONER);
     theDomain.setPartitioner(OPS_DOMAIN_PARTITIONER);

@@ -74,6 +74,9 @@ class MPI_Channel : public Channel
     int sendID(int dbTag, int commitTag, const ID &theID, ChannelAddress *theAddress =0);
     int recvID(int dbTag, int commitTag, ID &theID, ChannelAddress *theAddress =0);    
     
+    int bcastID(int origin_rank, int commitTag, ID &theID, ChannelAddress *theAddress =0);
+    int bcastVector(int origin_rank, int commitTag, Vector &theVector, ChannelAddress *theAddress =0);
+    int bcastMatrix(int origin_rank, int commitTag, Matrix &theMatrix, ChannelAddress *theAddress =0);
     
   protected:
 	

@@ -797,8 +797,9 @@
 
 #define GraphNUMBERER_TAG_SimpleNumberer   	2
 #define GraphNUMBERER_TAG_MyRCM   		3
-#define GraphNUMBERER_TAG_Metis   		4
-#define GraphNUMBERER_TAG_AMD   		5
+#define GraphNUMBERER_TAG_Metis         4
+#define GraphNUMBERER_TAG_AMD           5
+#define GraphNUMBERER_TAG_MetisWithTopology   		6
 
 
 #define AnaMODEL_TAGS_AnalysisModel 	1

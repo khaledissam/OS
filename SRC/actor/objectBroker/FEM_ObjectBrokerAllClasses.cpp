@@ -18,9 +18,9 @@
 **                                                                    **
 ** ****************************************************************** */
                                                                         
-// $Revision$
-// $Date$
-// $URL$
+// $Revision: 6678 $
+// $Date: 2018-02-21 16:32:24 -0300 (Wed, 21 Feb 2018) $
+// $URL: svn://peera.berkeley.edu/usr/local/svn/OpenSees/trunk/SRC/actor/objectBroker/FEM_ObjectBrokerAllClasses.cpp $
                                                                         
 // Written: fmk
 // Revision: A
@@ -236,6 +236,7 @@
 #include <SSPquadUP.h>
 #include <SSPbrick.h>
 #include <SSPbrickUP.h>
+#include <SurfaceLoad.h>
 #include <BeamContact2D.h>
 #include <BeamContact2Dp.h>
 #include <BeamContact3D.h>
@@ -319,6 +320,7 @@
 #include <EnvelopeNodeRecorder.h>
 #include <EnvelopeElementRecorder.h>
 #include <DriftRecorder.h>
+#include <PVDRecorder.h>
 
 
 // mp_constraint header files
@@ -345,6 +347,7 @@
 #include <Beam3dPointLoad.h>
 #include <BrickSelfWeight.h>
 #include <SelfWeight.h>
+#include <SurfaceLoader.h>
 
 // matrix, vector & id header files
 #include <Matrix.h>
@@ -705,6 +708,9 @@ FEM_ObjectBrokerAllClasses::getNewElement(int classTag)
     case ELE_TAG_SSPbrickUP:
       return new SSPbrickUP();
       
+    case ELE_TAG_SurfaceLoad:
+      return new SurfaceLoad();
+    
     case ELE_TAG_BeamContact2D:
       return new BeamContact2D();
       
@@ -939,9 +945,11 @@ FEM_ObjectBrokerAllClasses::getNewElementalLoad(int classTag)
     case LOAD_TAG_SelfWeight:
       return new SelfWeight();
 	     
+    case LOAD_TAG_SurfaceLoader:
+      return new SurfaceLoader();     
   default:
-    opserr << "FEM_ObjectBrokerAllClasses::getNewNodalLoad - ";
-    opserr << " - no NodalLoad type exists for class tag ";
+    opserr << "FEM_ObjectBrokerAllClasses::getNewElementalLoad - ";
+    opserr << " - no ElementallLoad type exists for class tag ";
     opserr << classTag << endln;
     return 0;
     
@@ -1711,6 +1719,9 @@ FEM_ObjectBrokerAllClasses::getPtrNewRecorder(int classTag)
 
 		 case RECORDER_TAGS_DriftRecorder:  
 	     return new DriftRecorder();
+
+    case RECORDER_TAGS_PVDRecorder:
+         return new PVDRecorder();        
 
         case RECORDER_TAGS_TclFeViewer:  
 	  return 0;

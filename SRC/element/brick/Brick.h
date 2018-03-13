@@ -180,6 +180,7 @@ class Brick : public Element {
   
     //Matrix transpose
     Matrix transpose( int dim1, int dim2, const Matrix &M ) ;
+    Vector initDisp[8];
 
 } ; 
 

@@ -18,9 +18,9 @@
 **                                                                    **
 ** ****************************************************************** */
                                                                         
-// $Revision$
-// $Date$
-// $URL$
+// $Revision: 6225 $
+// $Date: 2016-03-03 18:07:01 -0300 (Thu, 03 Mar 2016) $
+// $URL: svn://peera.berkeley.edu/usr/local/svn/OpenSees/trunk/SRC/domain/pattern/TclSeriesIntegratorCommand.cpp $
 
 // Written: fmk 
 // Created: 11/00

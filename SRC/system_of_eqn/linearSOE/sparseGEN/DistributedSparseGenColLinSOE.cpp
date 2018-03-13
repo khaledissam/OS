@@ -522,9 +522,12 @@ DistributedSparseGenColLinSOE::solve(void)
       this->LinearSOE::solve();
 
     // receive X,B and result
-    theChannel->recvVector(0, 0, *vectX);
-    theChannel->recvVector(0, 0, *vectB);
-    theChannel->recvID(0, 0, result);
+    // theChannel->recvVector(0, 0, *vectX);
+    // theChannel->recvVector(0, 0, *vectB);
+    // theChannel->recvID(0, 0, result);
+    theChannel->bcastVector(0, 0, *vectX);
+    theChannel->bcastVector(0, 0, *vectB);
+    theChannel->bcastID(0, 0, result);
     factored = true;
   } 
 
@@ -546,10 +549,10 @@ DistributedSparseGenColLinSOE::solve(void)
       *vectB += *vectX;
 
       if (factored == false) {
-	Vector vectA(workArea, nnz);
-	theChannel->recvVector(0, 0, vectA);
-	for (int i=0; i<nnz; i++)
-	  A[i] += workArea[i];	
+      	Vector vectA(workArea, nnz);
+      	theChannel->recvVector(0, 0, vectA);
+      	for (int i=0; i<nnz; i++)
+      	  A[i] += workArea[i];	
       }	
 
       /*
@@ -573,13 +576,16 @@ DistributedSparseGenColLinSOE::solve(void)
     result(0) = this->LinearSOE::solve();
 
     // send results back
-    for (int j=0; j<numChannels; j++) {
-      Channel *theChannel = theChannels[j];
-      theChannel->sendVector(0, 0, *vectX);
-      theChannel->sendVector(0, 0, *vectB);
+    // for (int j=0; j<numChannels; j++) {
+    //   Channel *theChannel = theChannels[j];
+    //   theChannel->sendVector(0, 0, *vectX);
+    //   theChannel->sendVector(0, 0, *vectB);
 
-      theChannel->sendID(0, 0, result);      
-    }
+    //   theChannel->sendID(0, 0, result);      
+    // }
+    theChannels[0]->bcastVector(0, 0, *vectX);
+    theChannels[0]->bcastVector(0, 0, *vectB);
+    theChannels[0]->bcastID(0, 0, result);
   } 
   
   return result(0);

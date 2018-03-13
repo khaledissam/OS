@@ -196,7 +196,10 @@ void  Brick::setDomain( Domain *theDomain )
 
   //node pointers
   for ( i=0; i<8; i++ ) 
-     nodePointers[i] = theDomain->getNode( connectedExternalNodes(i) ) ;
+  {
+      nodePointers[i] = theDomain->getNode( connectedExternalNodes(i) ) ;
+      initDisp[i] = nodePointers[i]->getDisp();
+  }
 
   this->DomainComponent::setDomain(theDomain);
 
@@ -563,6 +566,9 @@ Brick::addLoad(ElementalLoad *theLoad, double loadFactor)
       appliedB[0] += loadFactor*data(0)*b[0];
       appliedB[1] += loadFactor*data(1)*b[1];
       appliedB[2] += loadFactor*data(2)*b[2];
+      // opserr << "loadfactor = " << loadFactor << endln;
+      // opserr << "      data = " << data;
+      // opserr << "      b    = " << b   ;
       return 0;
   } else {
     opserr << "Brick::addLoad() - ele with tag: " << this->getTag() << " does not deal with load type: " << type << "\n";
@@ -936,7 +942,7 @@ Brick::update(void)
       double b50 = shp[2][j];
       double b52 = shp[0][j];
 
-      const Vector &ul = nodePointers[j]->getTrialDisp();
+      const Vector &ul = nodePointers[j]->getTrialDisp() - initDisp[j];
 
       double ul0 = ul(0);
       double ul1 = ul(1);
@@ -953,6 +959,8 @@ Brick::update(void)
     
     //send the strain to the material 
     success = materialPointers[i]->setTrialStrain( strain ) ;
+
+    // opserr << "8NB> strain = " << strain << endln;
 
   } //end for i gauss loop 
 

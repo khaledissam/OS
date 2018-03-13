@@ -18,9 +18,9 @@
 **                                                                    **
 ** ****************************************************************** */
 
-// $Revision$
-// $Date$
-// $URL$
+// $Revision: 6223 $
+// $Date: 2016-03-01 21:32:50 -0300 (Tue, 01 Mar 2016) $
+// $URL: svn://peera.berkeley.edu/usr/local/svn/OpenSees/trunk/SRC/analysis/integrator/AlphaOS_TP.h $
 
 #ifndef AlphaOS_TP_h
 #define AlphaOS_TP_h

@@ -18,9 +18,9 @@
 **                                                                    **
 ** ****************************************************************** */
                                                                         
-// $Revision$
-// $Date$
-// $URL$
+// $Revision: 6475 $
+// $Date: 2016-09-23 04:00:15 -0300 (Fri, 23 Sep 2016) $
+// $URL: svn://peera.berkeley.edu/usr/local/svn/OpenSees/trunk/SRC/domain/pattern/PathSeries.cpp $
                                                                         
 // Written: fmk 
 // Created: 07/99
